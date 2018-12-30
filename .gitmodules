@@ -1,0 +1,3 @@
+[submodule "distance-field"]
+	path = distance-field
+	url = https://github.com/sprickett/distance-field.git

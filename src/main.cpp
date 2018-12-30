@@ -223,8 +223,8 @@ int main(int argc, char** argv)
 
 	std::vector<Glyph> glyphs;
 	glyphs.reserve(face->num_glyphs);
-
-	for (char_code = FT_Get_First_Char(face, &index); index; char_code = FT_Get_Next_Char(face, char_code, &index))
+	char_code = FT_Get_First_Char(face, &index);
+	while(index)
 	{
 		error = FT_Load_Glyph(face, index, FT_LOAD_RENDER);
 		if (error)
@@ -253,6 +253,8 @@ int main(int argc, char** argv)
 		m.vertical.bearing.y = fm.vertBearingY*s;
 		m.vertical.advance.x = 0;
 		m.vertical.advance.y = fm.vertAdvance*s;
+
+		char_code = FT_Get_Next_Char(face, char_code, &index);
 	}
 
 
@@ -286,9 +288,9 @@ int main(int argc, char** argv)
 		for (auto& p : solution)
 		{
 			auto& r = p.second;
-			//auto& g = glyphs[p.first];
-			//g.bitmap.copyTo(bmp(r.x, r.y, g.bitmap.width(), g.bitmap.height()));
-			bmp(r.x, r.y, r.width, r.height).setTo(-1);
+			auto& g = glyphs[p.first];
+			g.bitmap.copyTo(bmp(r.x, r.y, g.bitmap.width(), g.bitmap.height()));
+			//bmp(r.x, r.y, r.width, r.height).setTo(-1);
 
 		}
 		std::cout<< "bam\n";

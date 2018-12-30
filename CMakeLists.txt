@@ -4,6 +4,8 @@ project(FontFun)
 
 set(CMAKE_CXX_STANDARD 14)
 
+find_package(Freetype )
+
 include_directories(
     include
 )
@@ -11,6 +13,8 @@ link_directories(
     win64
     win32
 )
+
+add_subdirectory(distance-field)
 
 add_executable( font_fun
     src/main.cpp
